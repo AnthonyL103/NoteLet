@@ -1,0 +1,39 @@
+<!--handlebar template for login page-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+  <header>
+    <h1>NoteLet</h1>
+    <nav class="nav-brand">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/note-scans" class="nav-link">Note Scans</a>
+    </nav>
+  </header>
+  <div>
+    <fieldset>
+        <legend>Login</legend>
+    <form action="/login" method="post">
+      <label for="username">Username:</label>
+      <input type="username" id="username" name="username" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
+    <form action="/sign-up" method="get">
+          <button type="submit">Sign Up</button>
+        </form>
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+    </fieldset>
+  </div>
+  <footer>
+    <p>&copy;Anthony Li - NoteLet</p>
+  </footer>
+</body>
+</html>

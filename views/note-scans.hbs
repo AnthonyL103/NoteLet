@@ -1,0 +1,48 @@
+<!--handlebar template for quote categories page also known as "quotes page"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Note Scans</title>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+  <header>
+    <h1>Note Scans</h1>
+    <!--displays username if logged in-->
+    {{#if username}}
+      <h2>Welcome, {{username}}</h2>
+    {{/if}}
+    <nav class="nav-brand">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/note-scans" class="nav-link">Note Scans</a>
+      <!--conditional statements to display the logout/login button depending on if user is logged in or not-->
+      {{#if username}}
+        <a href="/logout" class="nav-link">Logout</a>
+      {{else}}
+        <a href="/login" class="nav-link">Login</a>
+      {{/if}}
+    </nav>
+  </header>
+  <main>
+    <fieldset>
+        <legend>Upload Your Notes</legend>
+        <form action="/note-scans" method="post" enctype="multipart/form-data">
+          <label for="note">Choose a note image:</label>
+          <input type="file" id="note" name="note" accept="image/*" required>
+          <button type="submit">Upload and Scan</button>
+        </form>
+        {{#if message}}
+          <p class="message">{{message}}</p>
+          <pre>{{scan.text}}</pre>
+        {{/if}}
+        {{#if error}}
+          <p class="error">{{error}}</p>
+        {{/if}}
+      </fieldset>
+  </main>
+  <footer>
+    <p>&copy;Anthony Li - NoteLet</p>
+  </footer>
+</body>
+</html>

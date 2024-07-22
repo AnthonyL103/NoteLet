@@ -1,0 +1,31 @@
+<!--handlebar template for quote categories page also known as "quotes page"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to NoteLet</title>
+  <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to NoteLet!!</h1>
+    <!--displays username if logged in-->
+    {{#if username}}
+      <h2>Welcome, {{username}}</h2>
+    {{/if}}
+    <nav class="nav-brand">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/note-scans" class="nav-link">Note Scans</a>
+      <!--conditional statements to display the logout/login button depending on if user is logged in or not-->
+      {{#if username}}
+        <a href="/logout" class="nav-link">Logout</a>
+      {{else}}
+        <a href="/login" class="nav-link">Login</a>
+      {{/if}}
+    </nav>
+  </header>
+  <footer>
+    <p>&copy;Anthony Li - NoteLet</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,219 @@
+/*root colors for organization*/
+:root {
+    --main-bg-color: #f5f5f5; 
+    --main-text-color: #090909; 
+    --highlight-color: #070707; 
+}
+
+/*header css style for consistency*/
+header {
+    background-color: orange;
+    padding: 10px;
+}
+
+/*footer css style for consistency*/
+footer {
+    background-color: orange;
+    padding: 10px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    position: fixed;
+    
+}
+
+/*div container style for page content*/
+div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*sets error color status to red*/
+.error {
+    color:#dc3545;
+}
+
+/*sets section css styles */
+section {
+    margin: 100px;
+    background-color: #d6d3d3;
+    padding: 20px;
+    width: 35%;
+    border: 2px solid var(--main-text-color);
+    border-radius: 10px;
+}
+
+/*quote form css style*/
+.quote-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+/*field set css style for login*/
+fieldset {
+    width: 80%;
+    margin: 10px 0;
+    padding: 20px;
+    border: 2px solid var(--main-text-color);
+    border-radius: 10px;
+}
+
+/*nav bar css style*/
+nav {
+    background-color: #a3a9ac;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+/*nav brand css style*/
+.nav-brand {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+/*css style for nav links*/
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #0d0e0e;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin: 10px 0;
+}
+
+/*sets hover effect for nav links*/
+.nav-link:hover {
+    background-color: #ffa500;
+}
+
+/*legend css style used for fieldset*/
+legend {
+    font-weight: bold;
+    color: var(--highlight-color);
+}
+
+/*label css style*/
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/*modal css style for add quote*/
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px; 
+  }
+  /*add quote form css style*/
+  .add-quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px; 
+    padding: 20px; 
+    margin: 0 auto; 
+    background-color: #f9f9f9; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  }
+  
+  /*sets margin for add quote label*/
+  .add-quote label {
+    margin-bottom: 10px;
+  }
+  
+  /*sets input css style for add quote form*/
+  .add-quote input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /*css style for add quote buttons*/
+  .add-quote button[type="submit"],
+  .add-quote button[type="button"] {
+    padding: 10px 20px;
+    margin-top: 10px; 
+    background-color: #0b0b0b;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /*adds hover effect for add quote buttons*/
+  .add-quote button[type="submit"]:hover,
+  .add-quote button[type="button"]:hover {
+    background-color: #ffa500;
+  }
+
+/*sets select css style for login */
+input[type="username"],
+input[type="password"],
+textarea,
+select {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--main-text-color);
+    border-radius: 5px;
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+}
+
+/*styles elements when they are focused*/
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--highlight-color);
+}
+
+/*sets placeholder color*/
+::placeholder {
+    color: #888; 
+}
+
+/*sets required color effect for input*/
+:required {
+    border-color: #dc3545; 
+}
+
+/*sets valid color effect for input*/
+:valid {
+    border-color: #28a745;
+}
+
+/*sets general button css style*/
+button {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #0e0e0e;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/*adds hover effect for general button*/
+button:hover {
+    background-color: #ffa500;
+}
