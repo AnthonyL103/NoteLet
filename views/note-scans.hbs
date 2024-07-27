@@ -15,6 +15,7 @@
     {{/if}}
     <nav class="nav-brand">
       <a href="/" class="nav-link">Home</a>
+      <a href="/flashcards" class="nav-link">Flashcards</a>
       <a href="/note-scans" class="nav-link">Note Scans</a>
       <!--conditional statements to display the logout/login button depending on if user is logged in or not-->
       {{#if username}}
@@ -25,7 +26,8 @@
     </nav>
   </header>
   <main>
-    <fieldset>
+      <div>
+      <fieldset>
         <legend>Upload Your Notes</legend>
         <form action="/note-scans" method="post" enctype="multipart/form-data">
           <label for="note">Choose a note image:</label>
@@ -34,15 +36,47 @@
         </form>
         {{#if message}}
           <p class="message">{{message}}</p>
-          <pre>{{scan.text}}</pre>
         {{/if}}
         {{#if error}}
           <p class="error">{{error}}</p>
         {{/if}}
       </fieldset>
+      </div>
+      <div>
+        <h3>Uploaded Notes</h3>
+        <ul class = "uploaded-notes">
+          {{#each scans}}
+            <li>
+              <strong>Date:</strong> {{this.date}} <br>
+              <strong>Original Name:</strong> {{this.originalName}} <br>
+              <button class="delete-scan" data-id="{{this.id}}">Delete Scan</button>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
   </main>
-  <footer>
-    <p>&copy;Anthony Li - NoteLet</p>
-  </footer>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const deleteButtons = document.querySelectorAll('.delete-scan');
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      const scanId = event.target.getAttribute('data-id');
+      fetch(`/note-scans/delete/${scanId}`, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          // Remove the deleted scan from the DOM
+          event.target.parentElement.remove();
+        } else {
+          alert(data.error);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  });
+});
+</script>
 </html>

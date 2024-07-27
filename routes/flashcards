@@ -1,0 +1,40 @@
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const router = express.Router();
+
+
+// Route to render the flashcards page
+router.get('/', (req, res) => {
+  const scansPath = path.join(__dirname, '../scans');
+  const scans = [];
+  if (fs.existsSync(scansPath)) {
+    fs.readdirSync(scansPath).forEach(file => {
+      const data = fs.readFileSync(path.join(scansPath, file), 'utf8');
+      scans.push(JSON.parse(data));
+    });
+  }
+  res.render('flashcards', { scans });
+});
+
+// Route to handle the creation of flashcards
+router.post('/', (req, res) => {
+  const scanId = req.body.scanId;
+  const scansPath = path.join(__dirname, '../scans');
+  const scanFilePath = path.join(scansPath, `${scanId}.json`);
+
+  if (fs.existsSync(scanFilePath)) {
+    const scanData = JSON.parse(fs.readFileSync(scanFilePath, 'utf8'));
+    const text = scanData.text;
+    const flashcards = text.split('\n').filter(line => line.trim() !== '').map(line => ({
+      question: line.split('?')[0],
+      answer: line.split('?')[1] || 'N/A'
+    }));
+
+    res.render('flashcards', { scanData, flashcards });
+  } else {
+    res.status(404).send('Scan not found');
+  }
+});
+
+module.exports = router;

@@ -119,6 +119,10 @@ app.post('/sign-up', (req, res) => {
 
 const scansRouter = require('./routes/note-scans');
 app.use('/note-scans', scansRouter);
+
+const flashcardsRouter = require('./routes/flashcards');
+app.use('/flashcards', flashcardsRouter);
+
   
 //route to handle logout
 app.get('/logout', (req, res) => {
@@ -127,6 +131,8 @@ app.get('/logout', (req, res) => {
   //redirects to the root URL
   res.redirect('/');
 });
+
+
 
 //starts the server and listen on the specified port
 app.listen(PORT, () => {

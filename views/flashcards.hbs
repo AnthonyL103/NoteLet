@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flashcards</title>
+  <link rel="stylesheet" href="/main.css">
+  
+</head>
+<body>
+  <header>
+    <h1>Flashcards</h1>
+    <!--displays username if logged in-->
+    {{#if username}}
+      <h2>Welcome, {{username}}</h2>
+    {{/if}}
+    <nav class="nav-brand">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/flashcards" class="nav-link">Flashcards</a>
+      <a href="/note-scans" class="nav-link">Note Scans</a>
+      <!--conditional statements to display the logout/login button depending on if user is logged in or not-->
+      {{#if username}}
+        <a href="/logout" class="nav-link">Logout</a>
+      {{else}}
+        <a href="/login" class="nav-link">Login</a>
+      {{/if}}
+    </nav>
+  </header>
+  <main>
+    <div>
+      <fieldset>
+        <legend>Pick a recent scan</legend>
+        <button id="openModal">Create Flashcards</button>
+        {{#if message}}
+          <p class="message">{{message}}</p>
+        {{/if}}
+        {{#if error}}
+          <p class="error">{{error}}</p>
+        {{/if}}
+      </fieldset>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="scanModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Select a Scan</h2>
+        <ul id="scanList">
+          {{#if scans.length}}
+          {{#each scans}}
+            <li>
+              <strong>Date:</strong> {{this.date}} <br>
+              <strong>Original Name:</strong> {{this.originalName}} <br>
+              <button class="selectScan" data-id="{{this.id}}">Select</button>
+            </li>
+          {{/each}}
+          {{else}}
+            <li>No scans available.</li>
+          {{/if}}
+        </ul>
+      </div>
+    </div>
+
+    {{#if flashcards}}
+      <h2>Generated Flashcards</h2>
+      <ul>
+        {{#each flashcards}}
+          <li>
+            <strong>Question:</strong> {{this.question}} <br>
+            <strong>Answer:</strong> {{this.answer}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </main>
+  <footer>
+    <p>&copy; Anthony Li - NoteLet</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById("scanModal");
+      const btn = document.getElementById("openModal");
+      const span = document.getElementsByClassName("close")[0];
+
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+      document.querySelectorAll('.selectScan').forEach(button => {
+        button.addEventListener('click', (event) => {
+          const scanId = event.target.getAttribute('data-id');
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = '/flashcards';
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'scanId';
+          input.value = scanId;
+          form.appendChild(input);
+          document.body.appendChild(form);
+          form.submit();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
