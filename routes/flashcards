@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Route to render the flashcards page
 router.get('/', (req, res) => {
+  const username = req.cookies.username;
   const scansPath = path.join(__dirname, '../scans');
   const scans = [];
   if (fs.existsSync(scansPath)) {
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
       scans.push(JSON.parse(data));
     });
   }
-  res.render('flashcards', { scans });
+  res.render('flashcards', { scans, username });
 });
 
 // Route to handle the creation of flashcards
