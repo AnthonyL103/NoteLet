@@ -38,4 +38,28 @@ router.post('/', (req, res) => {
   }
 });
 
-module.exports = router;
+router.delete('/delete/:flashcardId', (req, res) => {
+  const flashcardId = parseInt(req.params.flashcardId, 10);  // Parse the flashcard index or ID
+  const flashcardsPath = path.join(__dirname, '../flashcards.json');  // Path to the flashcards file
+
+  if (fs.existsSync(flashcardsPath)) {
+    let flashcardsData = JSON.parse(fs.readFileSync(flashcardsPath, 'utf8'));
+
+    // Check if flashcards array exists and the flashcardId is valid
+    if (flashcardsData.flashcards && flashcardsData.flashcards.length > flashcardId) {
+      // Remove the flashcard from the array
+      flashcardsData.flashcards.splice(flashcardId, 1);
+
+      // Save the updated data back to the file
+      fs.writeFileSync(flashcardsPath, JSON.stringify(flashcardsData, null, 2), 'utf8');
+
+      res.status(200).json({ message: 'Flashcard deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Flashcard not found' });
+    }
+  } else {
+    res.status(404).json({ error: 'Flashcards data not found' });
+  }
+});
+
+module.exports = router; 

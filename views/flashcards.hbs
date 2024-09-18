@@ -51,6 +51,7 @@
               <strong>Date:</strong> {{this.date}} <br>
               <strong>Original Name:</strong> {{this.originalName}} <br>
               <button class="selectScan" data-id="{{this.id}}">Select</button>
+
             </li>
           {{/each}}
           {{else}}
@@ -67,34 +68,31 @@
           <li>
             <strong>Question:</strong> {{this.question}} <br>
             <strong>Answer:</strong> {{this.answer}}
+            <button class="delete-flashcard" data-flashcard-id="{{@index}}">Delete Flashcard</button>
           </li>
         {{/each}}
       </ul>
-    {{/if}}
+    {{/if}}s
   </main>
-  <footer>
-    <p>&copy; Anthony Li - NoteLet</p>
-  </footer>
-
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const modal = document.getElementById("scanModal");
-      const btn = document.getElementById("openModal");
-      const span = document.getElementsByClassName("close")[0];
+      document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById("scanModal");
+        const btn = document.getElementById("openModal");
+        const span = document.getElementsByClassName("close")[0];
 
-      btn.onclick = function() {
-        modal.style.display = "block";
-      }
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
 
-      span.onclick = function() {
-        modal.style.display = "none";
-      }
-
-      window.onclick = function(event) {
-        if (event.target == modal) {
+        span.onclick = function() {
           modal.style.display = "none";
         }
-      }
+
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
 
       document.querySelectorAll('.selectScan').forEach(button => {
         button.addEventListener('click', (event) => {
@@ -112,6 +110,32 @@
         });
       });
     });
-  </script>
+  
+    document.addEventListener('DOMContentLoaded', () => {
+    const deleteButtons = document.querySelectorAll('.delete-flashcard');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        const flashcardId = event.target.getAttribute('data-flashcard-id');
+
+        fetch(`/flashcards/delete/${flashcardId}`, {
+          method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message) {
+            // Remove the deleted flashcard from the DOM
+            event.target.parentElement.remove();
+          } else {
+            alert(data.error);
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+    });
+  });
+  
+</script>
+
 </body>
 </html>
+
